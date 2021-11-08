@@ -1,0 +1,18 @@
+#BSUB -J bellhop3d
+#BSUB -n 4
+#BSUB -o %J.out
+#BSUB -e %J.err
+#BSUB -W 10
+#BSUB -q shiyong
+#BSUB -R "span[ptile=36]"
+
+module purge
+module load mpi/oneapimpi-oneapi-2021.1.1
+
+cd $LS_SUBCWD
+make cleanlsf
+make clean
+make 
+cp ./Bellhop/bellhop3d.exe ./my
+cd ./my
+mpirun ./bellhop3d.exe slice3dGaussian
